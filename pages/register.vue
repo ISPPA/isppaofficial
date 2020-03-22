@@ -80,56 +80,56 @@ export default {
   },
   methods: {
     async register() {
-      if (this.password !== this.password2) {
-        this.$notification["error"]({
-          message: "Signup Error",
-          description: `Passwords don't match}`
-        });
-      }
-
-      if (
-        !this.username ||
-        !this.password ||
-        !this.email
-      ) {
-        this.$notification["error"]({
-          message: "Signup Error",
-          description: `Please fill all fields`
-        });
-      }
-
-      // User Credentials
-      const user = {
-        _id: this.username.toLowerCase(),
-        username: this.username.toLowerCase(),
-        password: this.password,
-        ticker: this.ticker.toUpperCase(),
-        role: "User"
-      };
-      // UserData
-      const userData = {
-        _id: this.username.toLowerCase(),
-        displayname: this.vorname, // TODO Translate
-        email: this.email,
-        phone: "",
-        profileImage:
-          "http://genratio.de/wp-content/uploads/2019/04/DefaultAvatarZero700px.png",
-        kontaktFavoriten: [],
-        kontaktListen: []
-      };
-      // Merge User Informations
-      const fullUser = {
-        user,
-        userData
-      };
-
       try {
-        await this.$addUser(fullUser);
-        this.$store.commit("INIT_USER", false);
-        await this.$router.push("/login");
+        if (this.password !== this.password2) {
+          this.$notification["error"]({
+            message: "Signup Error",
+            description: `Passwords don't match}`
+          });
+        } else {
+          if (
+            !this.username ||
+            !this.password ||
+            !this.email
+          ) {
+            this.$notification["error"]({
+              message: "Signup Error",
+              description: `Please fill all fields`
+            });
+          } else {
+            // User Credentials
+            const user = {
+              _id: this.username.toLowerCase(),
+              username: this.username.toLowerCase(),
+              password: this.password,
+              ticker: this.ticker.toUpperCase(),
+              role: "User"
+            };
+            // UserData
+            const userData = {
+              _id: this.username.toLowerCase(),
+              displayname: this.vorname, // TODO Translate
+              email: this.email,
+              phone: "",
+              profileImage:
+                "http://genratio.de/wp-content/uploads/2019/04/DefaultAvatarZero700px.png",
+              kontaktFavoriten: [],
+              kontaktListen: []
+            };
+            // Merge User Informations
+            const fullUser = {
+              user,
+              userData
+            };
+            await this.$addUser(fullUser);
+            this.$store.commit("INIT_USER", false);
+            await this.$router.push("/login");
+          }
+        }
+
       } catch (e) {
         this.$notification["error"]({
-          message: "Error while logging in",
+          message: "Registering error",
           description: `${e.message}`
         });
       }
