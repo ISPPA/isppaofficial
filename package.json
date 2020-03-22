@@ -4,7 +4,7 @@
   "description": "Inter Stake Pool Peering Agreement - info page",
   "author": "ISPPA",
   "private": true,
-  "backend": "88.198.67.185",
+  "backend": "node.isppa.info",
   "config": {
     "nuxt": {
       "host": "localhost",
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "node compact",
-    "build": "nuxt build",
+    "build": "nuxt generate",
     "start": "NODE_ENV=production nuxt start",
     "test": "jest"
   },
@@ -43,7 +43,6 @@
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
     "less": "^3.11.1",
-    "less-loader": "^5.0.0",
     "nodemon": "^2.0.2",
     "vue-jest": "^4.0.0-0"
   }
