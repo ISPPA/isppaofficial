@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "node compact",
-    "build": "nuxt generate",
+    "build": "nuxt build",
     "start": "NODE_ENV=production nuxt start",
     "test": "jest"
   },
