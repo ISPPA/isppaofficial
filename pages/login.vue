@@ -126,7 +126,7 @@ export default {
           username: this.username.toLowerCase(),
           password: this.password
         });
-        await this.$router.push("/settings");
+        await this.$router.push("/");
         socket.emit("client", {
           id: socket.id,
           user: this.$store.state.authUser.username
