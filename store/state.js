@@ -6,6 +6,7 @@ export default () => ({
     connectivity: false,
     address: ''
   },
+  language: 'en',
   // Hooks
   fetchReadyAll: false
 })
