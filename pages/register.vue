@@ -2,7 +2,7 @@
   <section style="background:#2e2e2e;padding-top:25vh;min-height:100vh;">
     <div class="authContainer">
       <a-form id="authInput" @submit.prevent="login">
-        <img id="pageLoginLogo" src="@/assets/pictures/layout/logo.png" />
+        <img id="pageLoginLogo" src="@/assets/pictures/layout/logoISPPA.png" />
 
         <a-form-item>
           <a-input

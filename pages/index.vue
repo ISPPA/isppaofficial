@@ -5,7 +5,7 @@
         <section>
           <Logo id="pageLogo"/>
         </section>
-        <section class="" style="margin-top:4em;padding:2em;">
+        <section class="" style="margin-top:2em;padding:2em;">
           <div>
             <p v-html="proposalText" style="text-align:left;color:black;font-size:16px;margin-top:1em;line-height:1.6;" v-if="!editorVisible"></p>
 
@@ -103,7 +103,7 @@ export default {
   animation: 0.5s appear;
 }
 #pageLogo {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 .tagButton {
   margin: 0.25em;
