@@ -91,6 +91,7 @@
             [
             'username',
             'password',
+            'ticker',
             'role',
             ]"
             :slot="col"
@@ -136,19 +137,23 @@ const userdatadb = new PouchDB('./database/userdatacdb');
 
 // Collumns for Userlist Table
 const usersColumns = [{
-  title: 'Benutzer',
+  title: 'User',
   dataIndex: 'username',
   scopedSlots: { customRender: 'username' },
 },{
-  title: 'Rolle',
+  title: 'Role',
   dataIndex: 'role',
   scopedSlots: { customRender: 'role' },
+},{
+  title: 'Ticker',
+  dataIndex: 'ticker',
+  scopedSlots: { customRender: 'ticker' },
 },{
   title: 'Password',
   dataIndex: 'password',
   scopedSlots: { customRender: 'password' },
 },{
-  title: 'Aktionen',
+  title: 'Actions',
   dataIndex: 'delete',
   scopedSlots: { customRender: 'delete' },
 }];
@@ -209,9 +214,10 @@ export default {
           _id: this.newUserCol._id,
           _rev: this.newUserCol._rev,
           username: this.newUserCol.username,
-          ticker: this.newUserCol.ticker.toUpperCase(),
+          ticker: this.newUserCol.ticker || '',
           role: this.newUserCol.role,
-          ...this.doc
+          token: this.newUserCol.token,
+          password: this.newUserCol.password
         };
         await this.$putDoc(obj, obj._id, obj._rev, 'user');
         this.$message.success('User data saved');
@@ -221,8 +227,9 @@ export default {
         this.record = null;
       } catch (err) {
         this.$message.error(`Failed to save user data`);
+        console.log(err);
       }
-      this.cancel(key);
+      this.cancelUser(key);
     },
 
     cancelUser (key) {

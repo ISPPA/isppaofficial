@@ -9,7 +9,7 @@
           <div>
             <p v-html="proposalText" style="text-align:left;color:black;font-size:16px;margin-top:1em;line-height:1.6;" v-if="!editorVisible"></p>
 
-            <p style="float:right;font-size:15px;color:#9e9e9e;cursor:pointer;" @click="editorVisible = true" v-if="!editorVisible && $store.state.authUser.role === 'Administrator'">
+            <p style="float:right;font-size:15px;color:#9e9e9e;cursor:pointer;" @click="editorVisible = true" v-if="!editorVisible && $store.state.authUser.username != undefined">
               edit <a-icon type="edit"/>
             </p>
 
