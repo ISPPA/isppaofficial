@@ -15,7 +15,15 @@
 
             <TextEditor :database="'htmlsnips'" :htmlId="'proposal'" :author="$store.state.authUser.username" :language="$store.state.language" :closeEditor="closeEditor" v-if="editorVisible"/>
           </div>
+          <br>
+
+          <a-divider/>
+          <h1>Participating pools:</h1>
+          <a-tag class="tagButton" color="#5B577F" v-for="(pool, pIndex) in pools" :key="pIndex">
+            {{ pool }}
+          </a-tag>
         </section>
+
       </section>
     </section>
   </section>
@@ -33,7 +41,34 @@ export default {
   },
   data() {
     return {
-      editorVisible: false
+      editorVisible: false,
+      pools: [
+        'AHLNET',
+        'ANP',
+        'BAKE',
+        'BCSH',
+        'CALM',
+        'CHEAP',
+        'CHKN',
+        'COOL',
+        'CSP',
+        'ELMO',
+        'HAPPY',
+        'HRBR',
+        'HRMA',
+        'HRMS',
+        'KIWI',
+        'MERRY',
+        'MONKY',
+        'SAND',
+        'SEXY',
+        'SEXY69',
+        'SOBIT',
+        'STACK',
+        'STDN',
+        'STR8',
+        'VIPER'
+      ]
     }
   },
   methods: {
@@ -69,6 +104,10 @@ export default {
 }
 #pageLogo {
   margin-top: 10%;
+}
+.tagButton {
+  margin: 0.25em;
+  font-size: 20px;
 }
 .pageContainer {
   margin: 0 auto;

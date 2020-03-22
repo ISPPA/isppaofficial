@@ -33,23 +33,13 @@
             <a-input
             style:="padding-top: 1em;"
             class="withGap"
-            placeholder="First name"
-            v-model="newUserData.vorname"/>
-            <a-input
-            style:="padding-top: 1em;"
-            class="withGap"
-            placeholder="Last name"
-            v-model="newUserData.nachname"/>
+            placeholder="Ticker"
+            v-model="newUserData.ticker"/>
             <a-input
             style:="padding-top: 1em;"
             class="withGap"
             placeholder="Email"
             v-model="newUserData.email"/>
-            <a-input
-            style:="padding-top: 1em;"
-            class="withGap"
-            placeholder="Telephone number"
-            v-model="newUserData.phone"/>
           </div>
         </section>
 
@@ -219,6 +209,7 @@ export default {
           _id: this.newUserCol._id,
           _rev: this.newUserCol._rev,
           username: this.newUserCol.username,
+          ticker: this.newUserCol.ticker.toUpperCase(),
           role: this.newUserCol.role,
           ...this.doc
         };
