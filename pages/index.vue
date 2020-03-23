@@ -172,7 +172,7 @@ export default {
   .contentContainer {
     margin-top: 1.5em;
     padding: 0em;
-    max-width: calc(100vw - 8px);
+    max-width: 100vw;
   }
 }
 </style>
