@@ -1,9 +1,9 @@
 <template>
   <section style="text-align:left;">
 
-    <div>
+    <!-- <div>
       <p v-if="editor" v-html="editor.getHTML()" style="text-align:left;color:black;font-size:16px;margin-top:1em;line-height:1.6;"></p>
-    </div>
+    </div> -->
 
     <client-only>
       <div>
@@ -285,6 +285,21 @@ export default {
   padding: 0.25em;
   line-height: 1.6;
   border: 1px solid lightgrey;
+}
+p {
+  color: black;
+}
+h1 {
+  color: black;
+  font-size: 30px;
+}
+h2 {
+  color: black;
+  font-size: 25px;
+}
+h3 {
+  color: black;
+  font-size: 20px;
 }
 .menuButtonRow {
   width:100%;
