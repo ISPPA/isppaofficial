@@ -15,7 +15,7 @@
           </div>
           <div class="textElement">
 
-            <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorVisible = true" v-if="!editorVisible && $store.state.authUser.username != undefined">
+            <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorVisible = true" v-if="!editorVisible && $store.state.authUser != undefined">
               edit <a-icon type="edit"/>
             </span>
 
