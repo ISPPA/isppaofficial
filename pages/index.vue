@@ -52,7 +52,6 @@ import Textfield from "~/components/layout/Textfield";
 import TextEditor from '~/components/editor/TextEditor'
 
 export default {
-  middleware: 'auth',
   components: {
     Logo,
     TextEditor,
@@ -63,12 +62,15 @@ export default {
       editorVisible: false,
       pools: [
         'AHLNET',
+        'AIJOU',
         'ANP',
         'BAKE',
+        'BAKE2',
         'BCSH',
         'CALM',
         'CHEAP',
         'CHKN',
+        'CLIO1',
         'COOL',
         'CSP',
         'ELMO',
@@ -76,7 +78,10 @@ export default {
         'HRBR',
         'HRMA',
         'HRMS',
+        'ITALY',
         'KIWI',
+        'LIEBE',
+        'LOVE',
         'MERRY',
         'MONKY',
         'SAND',
