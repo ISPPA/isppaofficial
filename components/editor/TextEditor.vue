@@ -9,7 +9,7 @@
       <div>
         <div class="menuBar">
           <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-            <a-button-group size="large" class="menuButtonRow">
+            <a-button-group class="menuButtonRow">
 
               <a-button type="primary"
                 class="menubar__button"

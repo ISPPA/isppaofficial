@@ -167,11 +167,12 @@ export default {
 }
 @media screen and (max-width: 650px) {
   .pageContainer {
-    padding: 0.25em;
+    padding: 0em;
   }
   .contentContainer {
-    margin-top: 1em;
+    margin-top: 1.5em;
     padding: 0em;
+    max-width: calc(100vw - 8px);
   }
 }
 </style>
