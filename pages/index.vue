@@ -1,5 +1,6 @@
 <template>
   <section id="pageContent">
+    <a-icon type="setting" class="lowVisibilityIcon" @click="routeToSettings()" v-if="$store.state.authUser && $store.state.authUser.role === 'Administrator'"/>
     <section class="pageContainer">
       <section style="max-width:75em;">
         <section>
@@ -98,6 +99,9 @@ export default {
   methods: {
     closeEditor() {
       this.editorVisible = false;
+    },
+    routeToSettings() {
+      this.$router.push('/settings');
     }
   },
   computed: {
@@ -160,6 +164,17 @@ export default {
   margin: 0.25em;
   font-size: 20px;
 }
+.lowVisibilityIcon {
+  padding: 0.5em;
+  position: absolute;
+  display: inline;
+  right: 0;
+  color: #4e4e4e;
+  cursor: pointer;
+}
+.lowVisibilityIcon:hover {
+  color: lightgrey;
+}
 .pageContainer {
   margin: 0 auto;
   min-height: 100%;
@@ -171,6 +186,9 @@ export default {
   padding: 1em;
 }
 @media screen and (max-width: 650px) {
+  #pageLogo {
+    margin-top: 5%;
+  }
   .pageContainer {
     padding: 0em;
   }

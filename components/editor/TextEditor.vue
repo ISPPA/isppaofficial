@@ -144,8 +144,9 @@
 
           </editor-menu-bar>
         </div>
-
-        <editor-content class="editorTextfield" :editor="editor" />
+        <EditorFieldSlot>
+          <editor-content class="editorTextfield" :editor="editor" />
+        </EditorFieldSlot>
 
       </div>
     </client-only>
@@ -180,6 +181,8 @@ import {
   History,
   TrailingNode,
 } from 'tiptap-extensions'
+
+import EditorFieldSlot from './EditorFieldSlot'
 
 export default {
   props: {
@@ -227,7 +230,8 @@ export default {
   },
   components: {
     EditorContent,
-    EditorMenuBar
+    EditorMenuBar,
+    EditorFieldSlot
   },
   data() {
     return {
@@ -285,21 +289,6 @@ export default {
   padding: 0.25em;
   line-height: 1.6;
   border: 1px solid lightgrey;
-}
-p {
-  color: black;
-}
-h1 {
-  color: black;
-  font-size: 30px;
-}
-h2 {
-  color: black;
-  font-size: 25px;
-}
-h3 {
-  color: black;
-  font-size: 20px;
 }
 .menuButtonRow {
   width:100%;

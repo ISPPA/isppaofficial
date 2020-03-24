@@ -32,7 +32,7 @@
       </a-tab-pane>
       <img
         src="~/assets/pictures/layout/logoISPPA.png"
-        style="width:12em;cursor:pointer;margin-top:0.25em;margin-right:0.5em;"
+        style="width:11em;cursor:pointer;margin-top:0.25em;margin-right:0.5em;"
         slot="tabBarExtraContent"
         @click="$router.push('/')"
       />

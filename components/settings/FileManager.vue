@@ -132,7 +132,7 @@ export default {
     let diskData = await this.$checkDiskspace();
 
     this.disk.free = diskData.freeGB;
-    this.disk.percent = diskData.freePercent.toFixed(2);
+    this.disk.percent = parseInt(diskData.freePercent.toFixed(2));
     this.disk.total = diskData.total;
 
     if (diskData.freePercent <= 10) {

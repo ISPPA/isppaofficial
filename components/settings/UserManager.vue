@@ -1,11 +1,10 @@
 <template>
   <section>
     <div class="serManagement">
-      <section class="newUser">
+      <!-- <section class="newUser">
         <a-divider class="dividerUserList" orientation="left"><h2>Users</h2></a-divider>
         <section class="newUserData">
 
-          <!-- General Data - Login -->
           <div class="genData">
             <a-divider orientation="left"><h3>Login</h3></a-divider>
             <a-input
@@ -27,7 +26,6 @@
             </a-input>
           </div>
 
-          <!-- Personal Data -->
           <div class="persoData">
             <a-divider orientation="left"><h3>Personal data</h3></a-divider>
             <a-input
@@ -44,7 +42,6 @@
         </section>
 
 
-        <!-- Role -->
         <a-divider orientation="left"><h3>Role</h3></a-divider>
         <div class="roleData">
           <a-radio-group
@@ -66,7 +63,6 @@
         </div>
 
 
-        <!-- Add User Button -->
         <a-button
           block
           type="primary"
@@ -77,8 +73,7 @@
       </section>
 
       <section class="gap">
-        <!-- Just a Gap -->
-      </section>
+      </section> -->
 
       <!-- Userlist  ########################################################################  SECTION -->
       <section class="userList">
