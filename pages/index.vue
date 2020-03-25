@@ -7,39 +7,63 @@
           <Logo id="pageLogo"/>
         </section>
         <section class="contentContainer">
-          <div class="proposalHeaderIconContainer">
-            <a-icon type="solution" style="font-size:30px;color:white;"/>
-          </div>
-          <div class="proposalHeader">
+          <section>
+            <div class="proposalHeaderIconContainer">
+              <a-icon type="solution" style="font-size:30px;color:white;"/>
+            </div>
+            <div class="proposalHeader">
 
-            <h2 style="float:right;color:white;"><b>PROPOSAL</b></h2>
-          </div>
-          <div class="textElement">
+              <h2 style="float:right;color:white;"><b>ABOUT ISPPA</b></h2>
+            </div>
+            <div class="textElement">
 
-            <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorVisible = true" v-if="!editorVisible && $store.state.authUser != undefined">
-              edit <a-icon type="edit"/>
-            </span>
+              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorAboutVisible = true" v-if="!editorAboutVisible && $store.state.authUser != undefined">
+                edit <a-icon type="edit"/>
+              </span>
 
-            <!-- <div v-html="proposalText" class="vHtmlText" style="text-align:left;color:black;font-size:16px;margin-top:1em;line-height:1.6;" v-if="!editorVisible"></div> -->
-            <Textfield :html="proposalText" v-if="!editorVisible"/>
+              <Textfield :html="aboutText" v-if="!editorAboutVisible"/>
 
-            <TextEditor :database="'htmlsnips'" :htmlId="'proposal'" :author="$store.state.authUser.username" :language="$store.state.language" :closeEditor="closeEditor" v-if="editorVisible"/>
-          </div>
+              <TextEditor :database="'htmlsnips'" :htmlId="'aboutus'" :author="$store.state.authUser.username" :language="$store.state.language" :closeEditor="closeAboutEditor" v-if="editorAboutVisible"/>
+            </div>
+          </section>
           <br>
 
-          <div class="proposalHeaderIconContainer">
-              <a-icon type="apartment" style="float:left;font-size:30px;color:white;"/>
-          </div>
-          <div class="proposalHeader">
-            <h2 style="float:right;color:white;"><b>PARTICIPANTS</b></h2>
-          </div>
-          <div class="textElement">
+          <section>
+            <div class="proposalHeaderIconContainer">
+              <a-icon type="file-text" style="font-size:30px;color:white;"/>
+            </div>
+            <div class="proposalHeader">
 
-            <a-tag class="tagButton" color="#5B577F" v-for="(pool, pIndex) in pools" :key="pIndex">
-              {{ pool }}
-            </a-tag>
+              <h2 style="float:right;color:white;"><b>OUR TESTCASE</b></h2>
+            </div>
+            <div class="textElement">
 
-          </div>
+              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorProposalVisible = true" v-if="!editorProposalVisible && $store.state.authUser != undefined">
+                edit <a-icon type="edit"/>
+              </span>
+
+              <Textfield :html="proposalText" v-if="!editorProposalVisible"/>
+
+              <TextEditor :database="'htmlsnips'" :htmlId="'designspec'" :author="$store.state.authUser.username" :language="$store.state.language" :closeEditor="closeProposalEditor" v-if="editorProposalVisible"/>
+            </div>
+          </section>
+          <br>
+
+          <section>
+            <div class="proposalHeaderIconContainer">
+                <a-icon type="apartment" style="float:left;font-size:30px;color:white;"/>
+            </div>
+            <div class="proposalHeader">
+              <h2 style="float:right;color:white;"><b>PARTICIPANTS</b></h2>
+            </div>
+            <div class="textElement">
+
+              <a-tag class="tagButton" color="#5B577F" v-for="(pool, pIndex) in pools" :key="pIndex">
+                {{ pool }}
+              </a-tag>
+
+            </div>
+          </section>
         </section>
 
       </section>
@@ -60,7 +84,8 @@ export default {
   },
   data() {
     return {
-      editorVisible: false,
+      editorAboutVisible: false,
+      editorProposalVisible: false,
       pools: [
         'AHLNET',
         'AIJOU',
@@ -97,18 +122,30 @@ export default {
     }
   },
   methods: {
-    closeEditor() {
-      this.editorVisible = false;
+    closeAboutEditor() {
+      this.editorAboutVisible = false;
+    },
+    closeProposalEditor() {
+      this.editorProposalVisible = false;
     },
     routeToSettings() {
       this.$router.push('/settings');
     }
   },
   computed: {
+    aboutText() {
+      let htmlElement = '';
+      for (let i = 0; i < this.$store.state['htmlsnips'].length; i++) {
+        if (this.$store.state['htmlsnips'][i]._id === 'aboutus' + this.$store.state.language) {
+          htmlElement = this.$store.state['htmlsnips'][i].rawHtml;
+        }
+      }
+      return htmlElement;
+    },
     proposalText() {
       let htmlElement = '';
       for (let i = 0; i < this.$store.state['htmlsnips'].length; i++) {
-        if (this.$store.state['htmlsnips'][i]._id === 'proposal' + this.$store.state.language) {
+        if (this.$store.state['htmlsnips'][i]._id === 'designspec' + this.$store.state.language) {
           htmlElement = this.$store.state['htmlsnips'][i].rawHtml;
         }
       }
