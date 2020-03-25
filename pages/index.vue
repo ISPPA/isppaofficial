@@ -30,7 +30,7 @@
 
           <section>
             <div class="proposalHeaderIconContainer">
-              <a-icon type="file-text" style="font-size:30px;color:white;"/>
+              <a-icon type="experiment" style="font-size:30px;color:white;"/>
             </div>
             <div class="proposalHeader">
 
