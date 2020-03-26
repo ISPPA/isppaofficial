@@ -28,4 +28,13 @@ export default {
   color: black;
   font-size: 20px;
 }
+
+.vHtmlText >>> code {
+  font-family: 'Source Code Pro';
+  background-color: #3e3e3e;
+  color: lightgrey;
+  border: 2px solid lightgrey;
+  display: block;
+  padding: 20px;
+}
 </style>
