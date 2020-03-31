@@ -58,8 +58,15 @@
             </div>
             <div class="textElement">
 
-              <a-tag class="tagButton" color="#5B577F" v-for="(pool, pIndex) in pools" :key="pIndex">
-                {{ pool }}
+              <a-tag class="tagButton" color="#5B577F" v-for="(pool, pIndex) in sortedPools" :key="`database-${pIndex}`" @click="openWebsiteNewTab(pool.website)">
+
+                <a-tooltip>
+                  <template slot="title">
+                    {{ pool.name }}
+                  </template>
+                  {{ pool.ticker }}
+                </a-tooltip>
+
               </a-tag>
 
             </div>
@@ -130,6 +137,9 @@ export default {
     },
     routeToSettings() {
       this.$router.push('/settings');
+    },
+    openWebsiteNewTab(link) {
+      window.open(link, "_blank");
     }
   },
   computed: {
