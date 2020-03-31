@@ -140,6 +140,7 @@ export default {
     },
     openWebsiteNewTab(link) {
       window.open(link, "_blank");
+    },
     sortByTicker( a, b ) {
       if ( a.ticker < b.ticker ){
         return -1;
