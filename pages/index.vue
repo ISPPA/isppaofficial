@@ -140,6 +140,15 @@ export default {
     },
     openWebsiteNewTab(link) {
       window.open(link, "_blank");
+    sortByTicker( a, b ) {
+      if ( a.ticker < b.ticker ){
+        return -1;
+      }
+      if ( a.ticker > b.ticker ){
+        return 1;
+      }
+      return 0;
+    },
     }
   },
   computed: {
@@ -161,6 +170,13 @@ export default {
       }
       return htmlElement;
     }
+    sortedPools() {
+      let peers = [];
+      for (let i = 0; i < this.$store.state.participants.length; i++) {
+        peers.push(this.$store.state.participants[i]);
+      }
+      return peers.sort(this.sortByTicker);
+    },
   }
 }
 </script>
