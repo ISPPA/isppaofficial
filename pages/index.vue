@@ -149,7 +149,6 @@ export default {
         return 1;
       }
       return 0;
-    },
     }
   },
   computed: {
@@ -170,7 +169,7 @@ export default {
         }
       }
       return htmlElement;
-    }
+    },
     sortedPools() {
       let peers = [];
       for (let i = 0; i < this.$store.state.participants.length; i++) {
