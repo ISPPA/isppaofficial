@@ -172,12 +172,7 @@ export default {
         displayname: this.vorname, // TODO Translate
         vorname: this.vorname,
         nachname: this.nachname,
-        email: this.email,
-        phone: "",
-        profileImage:
-          "http://genratio.de/wp-content/uploads/2019/04/DefaultAvatarZero700px.png",
-        kontaktFavoriten: [],
-        kontaktListen: []
+        email: this.email
       };
       // Merge User Informations
       const fullUser = {

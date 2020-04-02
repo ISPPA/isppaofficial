@@ -86,15 +86,15 @@ export default {
             message: "Signup Error",
             description: `Passwords don't match}`
           });
-        } else {
-          if (
-            !this.username ||
-            !this.password ||
-            !this.email
-          ) {
+        } else if (!this.username || !this.password || !this.ticker || !this.email) {
             this.$notification["error"]({
               message: "Signup Error",
               description: `Please fill all fields`
+            });
+          } else if (!this.usernameAvailable(this.username)) {
+            this.$notification["error"]({
+              message: "Signup Error",
+              description: `Username already taken!`
             });
           } else {
             // User Credentials
@@ -108,13 +108,8 @@ export default {
             // UserData
             const userData = {
               _id: this.username.toLowerCase(),
-              displayname: this.vorname, // TODO Translate
               email: this.email,
-              phone: "",
-              profileImage:
-                "http://genratio.de/wp-content/uploads/2019/04/DefaultAvatarZero700px.png",
-              kontaktFavoriten: [],
-              kontaktListen: []
+              profileImage: ''
             };
             // Merge User Informations
             const fullUser = {
@@ -125,14 +120,21 @@ export default {
             this.$store.commit("INIT_USER", false);
             await this.$router.push("/login");
           }
-        }
-
       } catch (e) {
         this.$notification["error"]({
           message: "Registering error",
           description: `${e.message}`
         });
       }
+    },
+    usernameAvailable(username) {
+      let available = true;
+      for (let i = 0; i < this.$store.state.user.length; i++) {
+        if (this.$store.state.user[i].username === username) {
+          available = false;
+        }
+      }
+      return available;
     }
   },
   computed: {

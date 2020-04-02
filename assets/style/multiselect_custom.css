@@ -114,7 +114,7 @@ fieldset[disabled] .multiselect {
     line-height: 20px;
     border: none;
     border-radius: 5px;
-    background: #4e4e4e;
+    background: white;
     padding: 0 0 0 5px;
     width: 100%;
     transition: border .1s ease;
@@ -128,7 +128,7 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__input::placeholder {
-    color: white
+    color: grey
 }
 
 .multiselect__tag~.multiselect__input,

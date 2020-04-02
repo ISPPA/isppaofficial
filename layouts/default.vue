@@ -38,7 +38,16 @@ p {
   color: white;
   margin: 0;
 }
-
+code {
+  font-family: 'Source Code Pro';
+  background-color: #3e3e3e;
+  color: lightgrey;
+  border: 2px solid lightgrey;
+  display: block;
+  padding: 20px;
+  text-align: left;
+  line-height: 1.6;
+}
 @namespace url("http://www.w3.org/1999/xhtml");
 
 :root{
@@ -88,7 +97,83 @@ p {
   margin-top: 4em;
   animation: 1s appear;
 }
+.globeLogo{
+  animation: scaleGlobe linear 2s;
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+  -webkit-animation: scaleGlobe linear 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-transform-origin: 50% 50%;
+  -moz-animation: scaleGlobe linear 2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-transform-origin: 50% 50%;
+  -o-animation: scaleGlobe linear 2s;
+  -o-animation-iteration-count: infinite;
+  -o-transform-origin: 50% 50%;
+  -ms-animation: scaleGlobe linear 2s;
+  -ms-animation-iteration-count: infinite;
+  -ms-transform-origin: 50% 50%;
+}
 
+@keyframes scaleGlobe{
+  0% {
+    transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+  50% {
+    transform:  scaleX(2.00) scaleY(2.00) ;
+  }
+  100% {
+    transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+}
+
+@-moz-keyframes scaleGlobe{
+  0% {
+    -moz-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+  50% {
+    -moz-transform:  scaleX(2.00) scaleY(2.00) ;
+  }
+  100% {
+    -moz-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+}
+
+@-webkit-keyframes scaleGlobe {
+  0% {
+    -webkit-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+  50% {
+    -webkit-transform:  scaleX(2.00) scaleY(2.00) ;
+  }
+  100% {
+    -webkit-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+}
+
+@-o-keyframes scaleGlobe {
+  0% {
+    -o-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+  50% {
+    -o-transform:  scaleX(2.00) scaleY(2.00) ;
+  }
+  100% {
+    -o-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+}
+
+@-ms-keyframes scaleGlobe {
+  0% {
+    -ms-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+  50% {
+    -ms-transform:  scaleX(2.00) scaleY(2.00) ;
+  }
+  100% {
+    -ms-transform:  scaleX(1.00) scaleY(1.00) ;
+  }
+}
 @keyframes appear {
   0% {
     opacity: 0;
