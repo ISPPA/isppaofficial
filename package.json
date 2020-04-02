@@ -1,7 +1,7 @@
 {
   "name": "ISPPA",
-  "version": "0.0.6",
-  "description": "Inter Stake Pool Peering Agreement - info page",
+  "version": "0.0.7",
+  "description": "Inter Stake Pool Peering Agreement",
   "author": "ISPPA",
   "private": true,
   "backend": "node.isppa.info",

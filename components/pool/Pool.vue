@@ -35,7 +35,6 @@
               <span>
                 &nbsp;&nbsp;- address: "/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;id: "{{ node.nodeId }}"<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;preferred: true<br>
               </span>
             </code>
           </div>

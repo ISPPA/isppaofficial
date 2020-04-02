@@ -47,6 +47,7 @@ code {
   padding: 20px;
   text-align: left;
   line-height: 1.6;
+  overflow-x: auto;
 }
 @namespace url("http://www.w3.org/1999/xhtml");
 

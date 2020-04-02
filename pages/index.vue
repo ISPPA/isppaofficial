@@ -17,7 +17,7 @@
             </div>
             <div class="textElement">
 
-              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorAboutVisible = true" v-if="!editorAboutVisible && $store.state.authUser != undefined">
+              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorAboutVisible = true" v-if="!editorAboutVisible && $store.state.authUser != undefined && ($store.state.authUser.role === 'Editor' || $store.state.authUser.role === 'Administrator')">
                 edit <a-icon type="edit"/>
               </span>
 
@@ -38,7 +38,7 @@
             </div>
             <div class="textElement">
 
-              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorProposalVisible = true" v-if="!editorProposalVisible && $store.state.authUser != undefined">
+              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorProposalVisible = true" v-if="!editorProposalVisible && $store.state.authUser != undefined && ($store.state.authUser.role === 'Editor' || $store.state.authUser.role === 'Administrator')">
                 edit <a-icon type="edit"/>
               </span>
 
@@ -126,14 +126,29 @@
 
             <div class="textElement">
 
-              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorPeerListVisible = true" v-if="!editorPeerListVisible && $store.state.authUser != undefined">
+              <span style="float:right;font-size:15px;color:#6762CC;cursor:pointer;" @click="editorPeerListVisible = true" v-if="!editorPeerListVisible && $store.state.authUser != undefined && ($store.state.authUser.role === 'Editor' || $store.state.authUser.role === 'Administrator')">
                 edit <a-icon type="edit"/>
               </span>
 
               <Textfield :html="peerList" v-if="!editorPeerListVisible"/>
               <TextEditor :database="'htmlsnips'" :htmlId="'peerlist'" :author="$store.state.authUser.username" :language="$store.state.language" :closeEditor="closePeerListEditor" v-if="editorPeerListVisible"/>
 
-              <code>
+
+
+              <code v-if="peerListSyntax === '0817'">
+                &nbsp;&nbsp;layers:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;preferred_list:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view_max: 100<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peers:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ISPPA NODES<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# last edited: {{ findLastEditedNode }}<br>
+                <span v-for="(node, nodeIndex) in shuffledNodelist" :key="nodeIndex">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- address: "/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "{{ node.nodeId }}"<br>
+                </span>
+              </code>
+
+              <code v-if="peerListSyntax === '0814'">
                 &nbsp;&nbsp;# ISPPA NODES<br>
                 &nbsp;&nbsp;# last edited: {{ findLastEditedNode }}<br>
                 <span v-for="(node, nodeIndex) in shuffledNodelist" :key="nodeIndex">
@@ -142,6 +157,12 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;preferred: true<br>
                 </span>
               </code>
+
+              <div style="margin-top:0.5em;">
+                <a-tag style="cursor:pointer;text-align:right;color:#2e2e2e;" @click="peerListSyntax = '0817'">0.8.17 Syntax</a-tag>
+                <a-tag style="cursor:pointer;text-align:right;color:#2e2e2e;" @click="peerListSyntax = '0814'">0.8.14 Syntax</a-tag>
+              </div>
+
             </div>
             <br>
           </section>
@@ -228,6 +249,7 @@ export default {
       claimPoolVisible: false,
       participantToRemove: '',
       participantToClaim: '',
+      peerListSyntax: '0817',
       newParticipant: {
         name: '',
         ticker: '',
