@@ -34,7 +34,7 @@ export default {
   SET_USER: function (state, user) {
     state.authUser = user
   },
-  
+
   // SocketConnection
   SOCKET_CONNECTIVITY: function (state, { val, addr }) {
     state.backend.connectivity = val;
@@ -93,7 +93,9 @@ export default {
     return state.menuHidden = true
   },
   fetchReadyAll(state) {
-    console.log('All data in store commited!');
+    if (state.authUser && state.authUser.role === 'Administrator') {
+      console.log('All data in store commited!');
+    }
     return state.fetchReadyAll = true;
   },
 

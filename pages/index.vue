@@ -88,7 +88,7 @@
               <h2 style="color:#2e2e2e;"><b>Your Pools:</b></h2>
               <div v-if="currentUserPools.length != 0">
 
-                <Pool :currentUserPools="currentUserPools"/>
+                <Pool  v-for="(pool, pIndex) in currentUserPools" :key="`currentUserPool-${pIndex}`" :pool="pool"/>
 
 
               </div>
@@ -96,7 +96,6 @@
 
               <div style="margin-top:1em;" v-if="!claimPoolVisible">
                 <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="claimPoolVisible = !claimPoolVisible" v-if="!claimPoolVisible" type="dashed" block>CLAIM POOL</a-button>
-
               </div>
 
               <section style="background:#C7E2FF;padding:1em;margin-top:1em;" v-if="claimPoolVisible">
@@ -117,7 +116,23 @@
                 </div>
                 <a-button type="primary" style="width:calc(90% + 1em);margin-top:0.5em;" @click="claimPool(participantToClaim)" v-if="participantToClaim">claim <b> {{ participantToClaim.ticker }} </b> pool</a-button>
                 <a-button type="danger" style="width:calc(90% + 1em);margin-top:0.5em;background:#FFE3E0;color:red;" @click="claimPoolVisible = !claimPoolVisible">cancel</a-button>
+              </section>
 
+              <div style="margin-top:1em;" v-if="!addPoolVisible">
+                <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="addPoolVisible = !addPoolVisible" v-if="!addPoolVisible" type="dashed" block>ADD NEW PARTICIPATING POOL</a-button>
+              </div>
+
+              <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:2em;padding-bottom:1em;margin-top:1em;" v-if="addPoolVisible">
+                <h2 style="color:#2e2e2e;">ADD POOL:</h2>
+                <div class="inputContainer">
+                  <a-input class="basicInput" placeholder="Name" v-model="newParticipant.name"/>
+                  <a-input class="basicInput" placeholder="Ticker" v-model="newParticipant.ticker"/>
+                  <a-input class="basicInput" placeholder="Website" v-model="newParticipant.website"/>
+                  <a-input class="basicInput" placeholder="Pool ID" v-model="newParticipant.poolId"/>
+                </div>
+                <a-button type="primary" style="width:calc(90% + 1em);margin-top:1em;" @click="saveParticipant()">SAVE POOL</a-button>
+                <a-button type="danger" style="width:calc(90% + 1em);margin-top:0.5em;background:#FFE3E0;color:red;" @click="addPoolVisible = !addPoolVisible">cancel</a-button>
+                <br><br>
               </section>
 
 
@@ -140,21 +155,21 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;preferred_list:<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view_max: 100<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;peers:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# ISPPA NODES<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# last edited: {{ findLastEditedNode }}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;ISPPA&nbsp;NODES<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;last&nbsp;edited:&nbsp;{{ findLastEditedNode }}<br>
                 <span v-for="(node, nodeIndex) in shuffledNodelist" :key="nodeIndex">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- address: "/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "{{ node.nodeId }}"<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;address:&nbsp;"/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id:&nbsp;"{{ node.nodeId }}"<br>
                 </span>
               </code>
 
               <code v-if="peerListSyntax === '0814'">
-                &nbsp;&nbsp;# ISPPA NODES<br>
-                &nbsp;&nbsp;# last edited: {{ findLastEditedNode }}<br>
+                &nbsp;&nbsp;#&nbsp;ISPPA&nbsp;NODES<br>
+                &nbsp;&nbsp;#&nbsp;last&nbsp;edited: {{ findLastEditedNode }}<br>
                 <span v-for="(node, nodeIndex) in shuffledNodelist" :key="nodeIndex">
-                  &nbsp;&nbsp;- address: "/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;id: "{{ node.nodeId }}"<br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;preferred: true<br>
+                  &nbsp;&nbsp;-&nbsp;address:&nbsp;"/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;id:&nbsp;"{{ node.nodeId }}"<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;preferred:&nbsp;true<br>
                 </span>
               </code>
 
@@ -178,20 +193,8 @@
             </div>
             <div>
 
-              <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:2em;padding-bottom:1em;">
-                <h2 style="color:#2e2e2e;">ADD POOL:</h2>
-                <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Name" v-model="newParticipant.name"/>
-                <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Ticker" v-model="newParticipant.ticker"/>
-                <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Website" v-model="newParticipant.website"/>
-                <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Pool ID" v-model="newParticipant.poolId"/>
-                <a-button type="primary" style="width:calc(90% + 1em);margin-top:1em;" @click="saveParticipant()">SAVE POOL</a-button>
-                <br><br>
-
-
-              </section>
-
               <section style="background:#DBFFD4;padding-left:1em;padding-right:1em;padding-top:1em;padding-bottom:2em;">
-                <h2 style="color:#2e2e2e;">APPROVE POOL:</h2>
+                <h2 style="color:#2e2e2e;">APPROVE PARTICIPANT:</h2>
                 <p style="color:#5e5e5e;">Currently no pending applications.</p>
               </section>
 
@@ -228,8 +231,9 @@
 <script>
 import Logo from "~/components/layout/Logo";
 import Textfield from "~/components/layout/Textfield";
-import TextEditor from '~/components/editor/TextEditor'
-import Multiselect from 'vue-multiselect'
+import TextEditor from '~/components/editor/TextEditor';
+import Multiselect from 'vue-multiselect';
+import moment from 'moment';
 
 import Pool from '~/components/pool/Pool'
 
@@ -247,6 +251,7 @@ export default {
       editorProposalVisible: false,
       editorPeerListVisible: false,
       claimPoolVisible: false,
+      addPoolVisible: false,
       participantToRemove: '',
       participantToClaim: '',
       peerListSyntax: '0817',
@@ -285,7 +290,8 @@ export default {
           name: '',
           ticker: '',
           website: '',
-          poolId: ''
+          poolId: '',
+          addedBy: this.$store.state.authUser.username
         };
       } catch (err) {
         console.log(err);
@@ -400,10 +406,9 @@ export default {
     },
     findLastEditedNode() {
       let lastEdited = new Date(Math.max.apply(null, this.$store.state.nodelist.map(function(e) {
-        console.log(e.lastEdited);
         return new Date(e.lastEdited);
       })));
-      return lastEdited;
+      return moment(lastEdited).format("YYYY/MM/DD|HH:mm:ss");
     },
   }
 }
@@ -498,6 +503,19 @@ export default {
   color: white;
   padding: 1em;
 }
+.inputContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  width:calc(90% + 1em);
+  margin-left: calc(5% - 0.5em);
+}
+.basicInput {
+  background:white;
+  max-width:calc(50% - 0.5em);
+  color:#2e2e2e;
+  margin:0.25em;
+}
 @media screen and (max-width: 650px) {
   #pageLogo {
     margin-top: 5%;
@@ -509,6 +527,12 @@ export default {
     margin-top: 1.5em;
     padding: 0em;
     max-width: 100vw;
+  }
+  .basicInput {
+    background:white;
+    max-width: 100%;
+    color:#2e2e2e;
+    margin:0.25em;
   }
 }
 </style>

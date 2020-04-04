@@ -56,7 +56,9 @@ export async function commit2Store ({ store }) {
         remoteCount = `remote: ${count.remoteDocCount.doc_count}`
       }
 
-      console.log(` ######## [ Initial Fetch ] ########  Commit Data from "${db}" into Vuex Store: ${localCount} / ${remoteCount}`);
+      if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+        console.log(` ######## [ Initial Fetch ] ########  Commit Data from "${db}" into Vuex Store: ${localCount} / ${remoteCount}`);
+      }
     }
   };
   store.commit('fetchReadyAll');

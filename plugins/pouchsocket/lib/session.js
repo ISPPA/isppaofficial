@@ -6,7 +6,9 @@ const host = pkg.backend
 
 // Connect with Session/Room Socket
 export function socketSession ({ store }) {
-  console.log(` ######## [ Client Socket ] ########  Connect with Socket ${host}`);
+  if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+    console.log(` ######## [ Client Socket ] ########  Connect with Socket ${host}`);
+  }
 
   setTimeout(() => { // TODO Use Hook
     if (store.state.authUser && store.state.authUser.username) {
@@ -16,7 +18,9 @@ export function socketSession ({ store }) {
 
   // Socket
   socket.on(`documents`, async (docs, db) => {
-    console.log(` ######## [ Client Socket ] ########  Listen to new Data`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Listen to new Data`);
+    }
     let obj = {
       t: db,
       data: await docs
@@ -26,11 +30,15 @@ export function socketSession ({ store }) {
   }),
 
   socket.on('error', (err) => {
-    console.log(` ######## [ Client Socket ] ########  Error detected ${err}`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Error detected ${err}`);
+    }
   })
 
   socket.on(`new-document`, async (docs) => {
-    console.log(` ######## [ Client Socket ] ########  Listen to new Data`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Listen to new Data`);
+    }
     let obj = {
       t: db,
       data: await docs
@@ -39,22 +47,30 @@ export function socketSession ({ store }) {
   }),
 
   socket.on(`updated-documents`, (obj) => {
-    console.log(` ######## [ Client Socket ] ########  Listen to updated Data`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Listen to updated Data`);
+    }
     store.commit('updatedDoc', obj)
   }),
 
   socket.on(`removed-document`, (obj) => {
-    console.log(` ######## [ Client Socket ] ########  Listen to removed Data`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Listen to removed Data`);
+    }
     store.commit('removeDoc', obj)
   })
 
   socket.on('new-client', (clients) => {
-    console.log(` ######## [ Client Socket ] ########  Listen to new Client`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Listen to new Client`);
+    }
     store.commit('fetchClients', clients)
   })
 
   socket.emit('clients', (clients) => {
-    console.log(` ######## [ Client Socket ] ########  Fetch Clients`);
+    if (store.state.authUser && store.state.authUser.role === 'Administrator') {
+      console.log(` ######## [ Client Socket ] ########  Fetch Clients`);
+    }
     store.commit('fetchClients', clients)
   })
 }

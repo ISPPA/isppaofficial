@@ -1,6 +1,6 @@
 <template>
   <section>
-    <section v-for="(pool, pIndex) in currentUserPools" :key="`currentUserPool-${pIndex}`" style="margin-top:1em;">
+    <section style="margin-top:1em;">
       <div class="proposalHeaderIconContainerSmall">
         <a-icon type="deployment-unit" style="font-size:18px;color:white;"/>
       </div>
@@ -33,29 +33,28 @@
             <code>
               &nbsp;&nbsp;# {{ node.label }}<br>
               <span>
-                &nbsp;&nbsp;- address: "/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;id: "{{ node.nodeId }}"<br>
+                &nbsp;&nbsp;-&nbsp;address:&nbsp;"/ip4/{{ node.ipAddress }}/tcp/{{ node.port }}"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;id:&nbsp;"{{ node.nodeId }}"<br>
               </span>
             </code>
           </div>
         </section>
 
-        <div style="margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="currentUserPools.length != 0 && !addNodeVisible">
+        <div style="margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="!addNodeVisible">
 
-          <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="addNodeVisible = !addNodeVisible" v-if="currentUserPools.length != 0 && !addNodeVisible" type="dashed" block>ADD NODE</a-button>
+          <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="addNodeVisible = !addNodeVisible" v-if="!addNodeVisible" type="dashed" block>ADD NODE</a-button>
 
         </div>
-        <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:1em;padding-bottom:2em;margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="currentUserPools.length != 0 && addNodeVisible">
+        <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:1em;padding-bottom:2em;margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="addNodeVisible">
           <div>
             <h2 style="color:#2e2e2e;">ADD NODE:</h2>
-
-            <div>
-              <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Label" v-model="newNode.label"/>
-              <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Node ID" v-model="newNode.nodeId"/>
-              <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="IP Address" v-model="newNode.ipAddress"/>
-              <a-input style="background:white;max-width:45%;min-width:15em;color:#2e2e2e;margin:0.25em;" placeholder="Port" v-model="newNode.port"/>
-              <a-button type="primary" style="width:calc(90% + 1em);margin-top:1em;" @click="saveNode(pool.poolId);addNodeVisible = false">SAVE NODE</a-button>
+            <div class="inputContainer">
+              <a-input class="basicInput" placeholder="Label" v-model="newNode.label"/>
+              <a-input class="basicInput" placeholder="Node ID" v-model="newNode.nodeId"/>
+              <a-input class="basicInput" placeholder="IP Address" v-model="newNode.ipAddress"/>
+              <a-input class="basicInput" placeholder="Port" v-model="newNode.port"/>
             </div>
+            <a-button type="primary" style="width:calc(90% + 1em);margin-top:1em;" @click="saveNode(pool.poolId);addNodeVisible = false">SAVE NODE</a-button>
             <a-button type="danger" style="width:calc(90% + 1em);margin-top:0.5em;background:#FFE3E0;color:red;" @click="cancelAddNode()">cancel</a-button>
 
           </div>
@@ -70,7 +69,7 @@
 <script>
 export default {
   props: {
-    currentUserPools: Array
+    pool: Object
   },
   data() {
     return {
@@ -166,7 +165,7 @@ export default {
 }
 .labelTab {
   background:white;
-  max-width:25em;
+  max-width:20em;
   text-align:left;
   margin-left:1em;
   padding:0.5em;

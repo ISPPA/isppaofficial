@@ -31,7 +31,7 @@ Vue.prototype.$removeFile = async (filename, path, username) => {
 
 // Check Diskspace
 Vue.prototype.$checkDiskspace = async () => {
-  console.log(` ######## [ Client Filemanager ] ########  Check Diskspace`);
+  // console.log(` ######## [ Client Filemanager ] ########  Check Diskspace`);
   return new Promise((resolve, reject) => {
     socket.emit('checkdisk', (err, result) => {
       if (err) reject(err);
