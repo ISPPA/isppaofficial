@@ -77,7 +77,7 @@ export default {
       addNodeVisible: false,
       headers: {
         'Content-Type': 'application/json',
-        'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTg2MDA3MjA2LCJleHAiOjE2MTc1NDMyMDZ9.icsftwwE-T1Fr1SuLSsX0pbKV27H_5sxb9gga5e7j5A'
+        'access-token': ''
       },
       newNode: {
         poolId: '',
