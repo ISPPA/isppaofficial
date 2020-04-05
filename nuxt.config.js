@@ -58,13 +58,21 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
     '@nuxtjs/markdownit',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/isppa-api/': { target: 'https://peerlist.isppa.info/api', pathRewrite: {'^/isppa-api/': ''} },
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
+  axios: {
+    proxy: true // Can be also an object with default options
+  },
   markdownit: {
     injected: true
   },

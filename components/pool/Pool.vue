@@ -43,6 +43,7 @@
         <div style="margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="!addNodeVisible">
 
           <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="addNodeVisible = !addNodeVisible" v-if="!addNodeVisible" type="dashed" block>ADD NODE</a-button>
+          <a-button style="background:#F7F7F7;color:#6e6e6e;margin-top:1em;" v-if="$store.state.authUser && $store.state.authUser.role === 'Administrator'" @click="postNodelistToApi()" type="primary" block>POST NODELIST</a-button>
 
         </div>
         <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:1em;padding-bottom:2em;margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="addNodeVisible">
@@ -74,6 +75,10 @@ export default {
   data() {
     return {
       addNodeVisible: false,
+      headers: {
+        'Content-Type': 'application/json',
+        'access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTg2MDA3MjA2LCJleHAiOjE2MTc1NDMyMDZ9.icsftwwE-T1Fr1SuLSsX0pbKV27H_5sxb9gga5e7j5A'
+      },
       newNode: {
         poolId: '',
         label: '',
@@ -105,6 +110,7 @@ export default {
         this.newNode.poolId = poolId;
         this.newNode.lastEdited = new Date();
         await this.$postDoc(this.newNode, 'nodelist', this.$store.state.authUser.username);
+        this.postNodelistToApi();
         this.$notification['success']({
           message: 'Success!',
           description: 'New node saved.',
@@ -119,6 +125,35 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    postNodelistToApi() {
+      let nodes = [];
+      for (let i = 0; i < this.$store.state.nodelist.length; i++) {
+        let node = {
+          id: this.$store.state.nodelist[i].nodeId,
+          ip: this.$store.state.nodelist[i].ipAddress,
+          port: this.$store.state.nodelist[i].port
+        }
+        nodes.push(node);
+      }
+      let data = {
+        peerList: {
+          layers: {
+            preferred_list: {
+              view_max: 100,
+              peers: this.shuffle(nodes)
+            }
+          }
+        }
+      };
+      this.$axios.post('/isppa-api/', data, {
+          headers: this.headers
+        }).then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     cancelAddNode() {
       this.addNodeVisible = false;
@@ -144,6 +179,7 @@ export default {
         let result = confirm(`Delete ${node.label}?`);
         if (result) {
           await this.$remDoc(node, 'nodelist', this.$store.state.authUser.username);
+          this.postNodelistToApi();
           this.$notification['success']({
             message: 'Success!',
             description: 'Selected node removed.',
@@ -152,6 +188,20 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    shuffle(array) {
+      let currentIndex = array.length, temporaryValue, randomIndex;
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
     }
   }
 }
