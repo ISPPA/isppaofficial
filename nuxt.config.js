@@ -54,9 +54,6 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     // '@nuxtjs/tailwindcss',
   ],
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/markdownit',
@@ -64,12 +61,8 @@ module.exports = {
     '@nuxtjs/proxy'
   ],
   proxy: {
-    '/isppa-api/': { target: 'https://peerlist.isppa.info/api', pathRewrite: {'^/isppa-api/': ''} },
+    '/isppa-api/': { target: 'https://peerlist.isppa.info/api', pathRewrite: {'^/isppa-api/': ''} }
   },
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
   axios: {
     proxy: true // Can be also an object with default options
   },
@@ -79,24 +72,18 @@ module.exports = {
   router: {
     // middleware: 'auth'
   },
-  serverMiddleware: [
-    // body-parser middleware
-    bodyParser.json(),
-    // session middleware
-    session({
-      secret: 'super-secret-key',
-      resave: false,
-      saveUninitialized: false,
-      cookie: { maxAge: 10000000 }
-    }),
-  ],
-  /*
-  ** Build configuration
-  */
+  // serverMiddleware: [
+  //   // body-parser middleware
+  //   bodyParser.json(),
+  //   // session middleware
+  //   session({
+  //     secret: 'super-secret-key',
+  //     resave: false,
+  //     saveUninitialized: false,
+  //     cookie: { maxAge: 10000000 }
+  //   }),
+  // ],
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
     },
     loaders: {

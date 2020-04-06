@@ -44,7 +44,6 @@
 
           <a-button style="background:#F7F7F7;color:#6e6e6e;" @click="addNodeVisible = !addNodeVisible" v-if="!addNodeVisible" type="dashed" block>ADD NODE</a-button>
           <!-- <a-button style="background:#F7F7F7;color:#6e6e6e;margin-top:1em;" v-if="$store.state.authUser && $store.state.authUser.role === 'Administrator'" @click="postNodelistToApi()" type="primary" block>POST NODELIST</a-button> -->
-
         </div>
         <section style="background:#C7E2FF;padding-left:1em;padding-right:1em;padding-top:1em;padding-bottom:2em;margin-top:1em;margin-left:0.5em;margin-right:0.5em;" v-if="addNodeVisible">
           <div>
@@ -68,6 +67,8 @@
 </template>
 
 <script>
+import auth from '~/auth.config.json'
+
 export default {
   props: {
     pool: Object
@@ -77,8 +78,9 @@ export default {
       addNodeVisible: false,
       headers: {
         'Content-Type': 'application/json',
-        'access-token': ''
+        'access-token': auth.accessToken
       },
+      peers: 'peers',
       newNode: {
         poolId: '',
         label: '',
@@ -110,7 +112,7 @@ export default {
         this.newNode.poolId = poolId;
         this.newNode.lastEdited = new Date();
         await this.$postDoc(this.newNode, 'nodelist', this.$store.state.authUser.username);
-        // this.postNodelistToApi();
+        this.postNodelistToApi();
         this.$notification['success']({
           message: 'Success!',
           description: 'New node saved.',
@@ -147,13 +149,9 @@ export default {
         }
       };
       this.$axios.post('/isppa-api/', data, {
-          headers: this.headers
-        }).then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        headers: this.headers
+      });
+      // this.getPeerlist();
     },
     cancelAddNode() {
       this.addNodeVisible = false;
@@ -179,7 +177,7 @@ export default {
         let result = confirm(`Delete ${node.label}?`);
         if (result) {
           await this.$remDoc(node, 'nodelist', this.$store.state.authUser.username);
-          // this.postNodelistToApi();
+          this.postNodelistToApi();
           this.$notification['success']({
             message: 'Success!',
             description: 'Selected node removed.',
@@ -202,8 +200,15 @@ export default {
         array[randomIndex] = temporaryValue;
       }
       return array;
+    },
+    async getPeerlist() {
+      let peerlist = {};
+      let peerlistRaw = await this.$axios.get('/isppa-api/', {
+        headers: this.headers
+      }).then(value => peerlist = value.data);
+      this.peers = peerlist;
     }
-  }
+  },
 }
 </script>
 
